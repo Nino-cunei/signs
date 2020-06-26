@@ -1,5 +1,7 @@
 # tfFromAtf
 
+[![SWH](https://archive.softwareheritage.org/badge/origin/https://github.com/Nino-cunei/tfFromAtf/)](https://archive.softwareheritage.org/browse/origin/https://github.com/Nino-cunei/tfFromAtf/)
+
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3909491.svg)](https://doi.org/10.5281/zenodo.3909491)
 
 Converter from ATF to Text-Fabric.
