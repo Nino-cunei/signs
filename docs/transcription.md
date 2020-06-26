@@ -137,8 +137,8 @@ Sequence of signs separated by `-`. Sometimes the `-` is omitted. Very rarely th
 
 feature | values | in ATF | description
 ------- | ------ | ------ | -----------
-**after** | ` ` | | what comes after a word before the next word
-**atf** | `{disz}sze-ep-_{d}suen` | idem | full atf of a word, including flags and clustering characters
+**after** | ` ` | | what comes after a word before the next word, including word dividers (unlike this feature for signs)
+**atf** | `{disz}sze-ep-_{d}suen` | idem | full atf of a word, including flags and clustering characters, but no word dividers
 **sym** **symr** **symu** | | | essential parts of a word, composed of the **sym**, **symr**, **symu** values of its individual signs; the **-r** variant uses accented letters; the **-u** variant uses cuneiform unicode
 
 Node type [*cluster*](#cluster)

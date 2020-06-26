@@ -54,8 +54,8 @@ FIXES_DECL_FILE = f"{DECL_PATH}/fixes.yaml"
 
 META_DECL = readYaml(META_DECL_FILE)
 
-VERSION_SRC = META_DECL['versionSrc']
-VERSION_TF = META_DECL['versionTf']
+VERSION_SRC = META_DECL["versionSrc"]
+VERSION_TF = META_DECL["versionTf"]
 
 IN_DIR = f"{TRANS_DIR}/{VERSION_SRC}"
 
@@ -75,7 +75,7 @@ ADJACENT = "⁼"
 EXCL = "¡"
 WDIV_ORIG = "/"
 WDIV_ESC = "Ⅲ"
-WDIV_UNI = "\u12079"
+WDIV_UNI = "\U00012079"
 
 
 emphatic = {
@@ -1119,6 +1119,7 @@ def director(cv):
         nonlocal recentTrans
 
         curWord = None
+        prevWord = None
 
         for typ in clusterStatus:
             clusterStatus[typ] = False
@@ -1621,8 +1622,20 @@ def director(cv):
             if lParts == 1 and parts[0][0] == WDIV_ESC:
                 signStart()
                 cv.feature(
-                    curSign, type="wdiv", sym=WDIV_ORIG, symr=WDIV_ORIG, symu=WDIV_UNI
+                    curSign,
+                    type="wdiv",
+                    atf=WDIV_ORIG,
+                    sym=WDIV_ORIG,
+                    symr=WDIV_ORIG,
+                    symu=WDIV_UNI,
+                    after=" ",
+                    afterr=" ",
+                    afteru=" ",
                 )
+                if prevWord:
+                    afterDiv = (cv.get("after", prevWord) or "") + f" {WDIV_ORIG} "
+                    afterDivU = (cv.get("afteru", prevWord) or "") + f" {WDIV_UNI} "
+                    cv.feature(prevWord, after=afterDiv, afterr=afterDiv, afteru=afterDivU)
                 continue
 
             curWord = cv.node("word")
@@ -1659,8 +1672,13 @@ def director(cv):
                 )
             if after:
                 cv.feature(curWord, after=after)
+            if afterr:
+                cv.feature(curWord, afterr=afterr)
+            if afteru:
+                cv.feature(curWord, afteru=afteru)
 
             cv.terminate(curWord)
+            prevWord = curWord
             if not cv.linked(curWord):
                 errors["word: empty"][src].add((i, line, pNum, None))
             curWord = None
