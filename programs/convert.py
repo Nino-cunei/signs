@@ -308,7 +308,7 @@ generic = {
 
 otext = {
     "fmt:text-orig-full": "{atfpre}{atf}{atfpost}{after}",
-    "fmt:text-orig-plain": "{sym}{afterr}",
+    "fmt:text-orig-plain": "{sym}{after}",
     "fmt:text-orig-rich": "{symr}{afterr}",
     "fmt:text-orig-unicode": "{symu}{afteru}",
     "sectionFeatures": "pnumber,face,lnno",

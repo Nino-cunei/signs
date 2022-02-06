@@ -1,8 +1,7 @@
 <img src="images/ninologo.png" align="right" width="200"/>
 <img src="images/tf.png" align="right" width="200"/>
 
-Feature documentation
-=====================
+# Feature documentation
 
 Here you find a description of the transcriptions of several cuneiform corpora,
 the Text-Fabric model in general, and the node types, features of these
@@ -15,8 +14,7 @@ See also
 *   [text-fabric](https://annotation.github.io/text-fabric/about/datamodel.html#gsc.tab=0)
 *   [Utils API](utils.md)
 
-Conversion from ATF to TF
--------------------------
+## Conversion from ATF to TF
 
 Below is a description of document transcriptions in
 ATF (see below)
@@ -57,8 +55,8 @@ Text-Fabric supports up to three customizable section levels.
 In this corpus we use:
 [*document*](#document) and [*face*](#face) and [*line*](#line).
 
-Unicode Glyphs
---------------
+## Unicode Glyphs
+
 In order to map readings and graphemes to Cuneiform Unicode characers,
 we use the file
 [GeneratedSignList.json](https://github.com/Nino-cunei/tfFromAtf/blob/master/writing/GeneratedSignList.json)
@@ -79,13 +77,11 @@ We deal with those cases in the
 [mapReadings](https://nbviewer.jupyter.org/github/Nino-cunei/tfFromAtf/blob/master/programs/mapReadings.ipynb).
 notebook.
 
-Reference table of features
-===========================
+# Reference table of features
 
 *(Keep this under your pillow)*
 
-Node type [*sign*](#sign)
--------------------------
+## Node type [*sign*](#sign)
 
 Basic unit containing a single `reading` and/or `grapheme` and zero or more *flags*.
 
@@ -131,8 +127,8 @@ feature | values | in ATF | description
 **type** | | | type of sign, see table above
 **uncertain** | `1` | `[x (x)]` `[li-(il)-li]` | whether a sign is uncertain, marked by being within brackets  `( )`
 
-Node type [*word*](#word)
--------------------------
+## Node type [*word*](#word)
+
 Sequence of signs separated by `-`. Sometimes the `-` is omitted. Very rarely there is an other character between two signs, such as `:` or `/`. Words themselves are separated by spaces.
 
 feature | values | in ATF | description
@@ -141,8 +137,7 @@ feature | values | in ATF | description
 **atf** | `{disz}sze-ep-_{d}suen` | idem | full atf of a word, including flags and clustering characters, but no word dividers
 **sym** **symr** **symu** | | | essential parts of a word, composed of the **sym**, **symr**, **symu** values of its individual signs; the **-r** variant uses accented letters; the **-u** variant uses cuneiform unicode
 
-Node type [*cluster*](#cluster)
--------------------------------
+## Node type [*cluster*](#cluster)
 
 Grouped sequence of [*signs*](#sign). There are different
 types of these bracketings. Clusters may be nested.
@@ -162,8 +157,7 @@ type | examples | description
 Each cluster induces a sign feature with the same name as the type of the cluster,
 which gets value 1 precisely when the sign is in that cluster.
 
-Node type [*line*](#line)
--------------------------
+## Node type [*line*](#line)
 
 Subdivision of a containing [*face*](#face).
 Corresponds to a transcription or comment line in the source data.
@@ -182,8 +176,7 @@ feature | values | in ATF | description
 **trans** | `1` | | indicates whether a line has a translation (in the form of a following meta line (`#`))
 **translation@en** | `was given (lit. sealed) to me—` | `#tr.en: was given (lit. sealed) to me—` | English translation in the form of a meta line (`#`)
 
-Node type [*face*](#face)
--------------------------
+## Node type [*face*](#face)
 
 One of the sides of an *object* belonging to a document [*document*](#document).
 In most cases, the object is a *tablet*, but it can also be an *envelope*, or yet an other kind of object. 
@@ -195,8 +188,7 @@ feature | values | in ATF | description
 **srcLn** | `@obverse` | idem | see [source data](#source-data)
 **srcLnNum** | 29907 | not represented | see [source data](#source-data)
 
-Node type [*document*](#document)
------------------------------
+## Node type [*document*](#document)
 
 The main entity of which the corpus is composed, representing the transcription
 of all objects associated with it.
@@ -230,8 +222,7 @@ subgenre | Sub-genre | sub-genre
 transcriber | ATF source | person who did the encoding into ATF 
 ARK | UCLA Library ARK | persistent identifier of type ARK 
 
-Source data
-===========
+# Source data
 
 All nodes that correspond directly to a line in the corpus, also get features by
 which you can retrieve the original transcription.
@@ -244,8 +235,7 @@ For documents and faces the line refers to the source line where the encoding st
     not the ATF line number, but *n* as in the *n*-th line in the file,
     it does not occur as such in the source data. 
 
-Slots
-=====
+# Slots
 
 Slots are the textual positions. They can be occupied by individual signs or inline comments `($ ccc $)`.
 We have inserted empty slots on comment lines (starting with `$`)
@@ -255,8 +245,7 @@ place in the text sequence and to store the comment itself in the feature `comme
 We discuss the node types we are going to construct. A node type corresponds to
 a textual object. Some node types will be marked as a section level.
 
-Sign
-----
+## Sign
 
 This is the basic unit of writing.
 
@@ -433,11 +422,9 @@ We mark the fact that they are choices by storing the `/` character in the featu
 
 There are never more than 4 choices in this corpus.
 
-The other nodes
-===============
+# The other nodes
 
-Cluster
--------
+## Cluster
 
 One or more [*signs*](#sign) may be bracketed by `_ _` or by `( )` or by `[ ]` or by `< >` or by `<< >>`:
 together they form a *cluster*.
@@ -487,8 +474,7 @@ Marks signs that have been excised by the editor in order to arrive at a reading
 
 Marks signs that have been supplied by the editor in order to arrive at a reading
 
-Word
-----
+## Word
 
 Words are sequences of signs joined by `-` or occasionally `:` or `/`.
 Words themselves are separated by spaces ` `.
@@ -496,8 +482,7 @@ Words themselves are separated by spaces ` `.
 They have only one feature: **atf**, which contains the original ATF source,
 including cluster characters that are glued to the word or occur inside it.
 
-Line
-----
+## Line
 
 **This node type is section level 3**
 
@@ -532,8 +517,7 @@ If a line has a translation, say in English, marked by a following line starting
 
 If a line has any translation at all, in whatever language, the feature **trans** becomes `1`.
 
-Face
-----
+## Face
 
 **This node type is section level 2**
 
@@ -582,8 +566,7 @@ The object on which a face resides, goes to the feature **object**.
 Faces also have features **srcLn** and **srcLnNum**, like lines.
 In this cases, they refer to the line where a face starts.
 
-Document
-------
+## Document
 
 **This node type is section level 1.**
 
@@ -622,8 +605,7 @@ the whole set is not meaningful. The main identification of documents is by thei
 **pnumber**,
 not by any sequence number within the corpus.
 
-Text formats
-=============
+# Text formats
 
 The following text formats are defined (you can also list them with `T.formats`).
 
@@ -642,6 +624,6 @@ The formats with `layout` result in pieces html with css-styles; the richness of
 in the plain representation, e.g. blurry characters when signs are damaged or uncertain.
 
 See also the showcases: 
-*   [oldbabylonian](https://nbviewer.jupyter.org/github/annotation/tutorials/blob/master/oldbabylonian/display.ipynb).
-*   [oldbassyrian](https://nbviewer.jupyter.org/github/annotation/tutorials/blob/master/oldassyrian/display.ipynb).
+*   [oldbabylonian](https://nbviewer.jupyter.org/github/Nino-cunei/oldbabylonian/blob/master/tutorial/display.ipynb).
+*   [oldbassyrian](https://nbviewer.jupyter.org/github/Nino-cunei/oldassyrian/blob/master/tutorial/display.ipynb).
 
